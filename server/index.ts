@@ -4,8 +4,10 @@ import { log } from "./vite"; // Assuming log was in index.ts or vite.ts ? Wait,
 // Actually, server/app.ts implemented logging inline.
 import { app, httpServer } from "./app";
 import { serveStatic } from "./static";
+import { registerRoutes } from "./routes";
 
 (async () => {
+  await registerRoutes(httpServer, app);
   // importantly only setup vite in development and after
   // setting up all the other routes so the catch-all route
   // doesn't interfere with the other routes

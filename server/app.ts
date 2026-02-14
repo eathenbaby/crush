@@ -35,8 +35,8 @@ app.use((req, res, next) => {
     next();
 });
 
-// Register Routes (top-level await supported in modern Node/Vercel)
-await registerRoutes(httpServer, app);
+// Register Routes moved to entry points
+// await registerRoutes(httpServer, app);
 
 // Error Handler
 app.use((err: any, _req: Request, res: Response, next: NextFunction) => {
