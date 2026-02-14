@@ -10,6 +10,7 @@ import { Loader2, Lock, Heart, Flower, Mail } from "lucide-react";
 import { format } from "date-fns";
 import { z } from "zod";
 import { Navigation } from "@/components/Navigation";
+import { FloatingHearts } from "@/components/FloatingHearts";
 import { cn } from "@/lib/utils";
 
 type LoginFormValues = z.infer<typeof loginSchema>;
@@ -35,7 +36,7 @@ export default function Inbox() {
   const [session, setSession] = useState<{ creatorId: number; displayName: string } | null>(null);
   const login = useLogin();
   const { toast } = useToast();
-  
+
   // Login Form
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -56,9 +57,10 @@ export default function Inbox() {
 
   if (!session) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-paper px-4">
+      <div className="min-h-screen flex items-center justify-center bg-paper px-4 relative overflow-hidden">
+        <FloatingHearts />
         <Navigation />
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           className="w-full max-w-md paper-card p-10 rounded-2xl relative overflow-hidden"
@@ -67,7 +69,7 @@ export default function Inbox() {
           <div className="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <Lock className="w-6 h-6 text-stone-400" />
           </div>
-          
+
           <h1 className="text-3xl font-display text-center mb-2">Creator Access</h1>
           <p className="text-center font-body text-stone-500 mb-8 text-sm">
             Enter your credentials to view your letters.
@@ -76,25 +78,25 @@ export default function Inbox() {
           <form onSubmit={form.handleSubmit(onLogin)} className="space-y-6">
             <div className="space-y-1">
               <label className="text-xs font-ui font-bold uppercase tracking-widest text-stone-400 ml-1">Page Handle</label>
-              <input 
-                {...form.register("slug")} 
+              <input
+                {...form.register("slug")}
                 placeholder="sarah"
-                className="w-full p-3 bg-white border border-stone-200 rounded-lg outline-none focus:border-rose-400 transition-colors" 
-              />
-            </div>
-            
-            <div className="space-y-1">
-              <label className="text-xs font-ui font-bold uppercase tracking-widest text-stone-400 ml-1">Passcode</label>
-              <input 
-                {...form.register("passcode")} 
-                type="password"
-                placeholder="••••"
-                className="w-full p-3 bg-white border border-stone-200 rounded-lg outline-none focus:border-rose-400 transition-colors tracking-widest" 
+                className="w-full p-3 bg-white border border-stone-200 rounded-lg outline-none focus:border-rose-400 transition-colors"
               />
             </div>
 
-            <button 
-              type="submit" 
+            <div className="space-y-1">
+              <label className="text-xs font-ui font-bold uppercase tracking-widest text-stone-400 ml-1">Passcode</label>
+              <input
+                {...form.register("passcode")}
+                type="password"
+                placeholder="••••"
+                className="w-full p-3 bg-white border border-stone-200 rounded-lg outline-none focus:border-rose-400 transition-colors tracking-widest"
+              />
+            </div>
+
+            <button
+              type="submit"
               disabled={login.isPending}
               className="w-full py-4 bg-stone-800 text-white font-ui font-bold uppercase tracking-widest rounded-lg hover:bg-stone-900 transition-colors disabled:opacity-50"
             >
@@ -113,9 +115,10 @@ function InboxDashboard({ creatorId, displayName }: { creatorId: number, display
   const { data: messages, isLoading } = useMessages(creatorId);
 
   return (
-    <div className="min-h-screen bg-paper pb-20">
+    <div className="min-h-screen bg-paper pb-20 relative overflow-hidden">
+      <FloatingHearts />
       <Navigation />
-      
+
       <header className="pt-12 px-6 pb-6 border-b border-stone-200/50 bg-white/50 backdrop-blur-sm sticky top-0 z-40">
         <div className="max-w-4xl mx-auto flex items-end justify-between">
           <div>
@@ -182,7 +185,7 @@ function InboxDashboard({ creatorId, displayName }: { creatorId: number, display
                       )}
                     </div>
                   </div>
-                  
+
                   {msg.vibe && (
                     <span className="px-2 py-1 bg-stone-100 rounded text-xs font-ui font-bold uppercase text-stone-500">
                       {msg.vibe}
@@ -200,9 +203,9 @@ function InboxDashboard({ creatorId, displayName }: { creatorId: number, display
                     <div className="flex items-start gap-4">
                       {msg.bouquetId && (
                         <div className="w-20 h-20 shrink-0 rounded-lg overflow-hidden bg-stone-100">
-                          <img 
-                            src={FLOWER_IMAGES[msg.bouquetId]} 
-                            alt="Bouquet" 
+                          <img
+                            src={FLOWER_IMAGES[msg.bouquetId]}
+                            alt="Bouquet"
                             className="w-full h-full object-cover"
                           />
                         </div>

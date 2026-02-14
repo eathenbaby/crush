@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Loader2, Send as SendIcon } from "lucide-react";
 import { VibeCard } from "@/components/VibeCard";
 import { FlowerCard } from "@/components/FlowerCard";
+import { FloatingHearts } from "@/components/FloatingHearts";
 import confetti from "canvas-confetti";
 import { cn } from "@/lib/utils";
 
@@ -123,7 +124,7 @@ export default function Send() {
           <p className="font-body text-ink-light mb-8">
             Your message has been delivered to {creator.displayName}.
           </p>
-          <button 
+          <button
             onClick={() => {
               setIsSuccess(false);
               setContent("");
@@ -141,7 +142,8 @@ export default function Send() {
   }
 
   return (
-    <div className="min-h-screen bg-paper pb-20">
+    <div className="min-h-screen bg-paper pb-20 relative overflow-hidden">
+      <FloatingHearts />
       {/* Header */}
       <header className="pt-12 pb-8 px-6 text-center border-b border-stone-200/50">
         <span className="block text-xs font-ui font-bold uppercase tracking-widest text-stone-400 mb-2">
