@@ -78,3 +78,20 @@ export const loginSchema = z.object({
 });
 export type LoginRequest = z.infer<typeof loginSchema>;
 export type LoginResponse = { success: boolean; creator: Creator };
+export const confessions = pgTable("confessions", {
+  id: text("id").primaryKey(), // Using nanoid for short/cute URLs
+  senderName: text("sender_name").notNull(),
+  intentOption: text("intent_option").notNull(),
+  message: text("message").notNull(),
+  response: text("response"), // 'yes', 'no', 'maybe'
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const insertConfessionSchema = createInsertSchema(confessions).pick({
+  senderName: true,
+  intentOption: true,
+  message: true,
+});
+
+export type Confession = typeof confessions.$inferSelect;
+export type InsertConfession = z.infer<typeof insertConfessionSchema>;

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { insertCreatorSchema, insertMessageSchema, loginSchema, creators, messages } from './schema';
+import { insertCreatorSchema, insertMessageSchema, insertConfessionSchema, loginSchema, creators, messages, confessions } from './schema';
 
 // ============================================
 // SHARED ERROR SCHEMAS
@@ -39,10 +39,10 @@ export const api = {
       method: 'GET' as const,
       path: '/api/creators/:slug' as const,
       responses: {
-        200: z.object({ 
-          id: z.number(), 
-          displayName: z.string(), 
-          slug: z.string() 
+        200: z.object({
+          id: z.number(),
+          displayName: z.string(),
+          slug: z.string()
         }), // Public info only
         404: errorSchemas.notFound,
       },
@@ -73,6 +73,34 @@ export const api = {
       responses: {
         200: z.array(z.custom<typeof messages.$inferSelect>()),
         401: errorSchemas.unauthorized,
+      },
+    },
+  },
+  confessions: {
+    create: {
+      method: 'POST' as const,
+      path: '/api/confessions' as const,
+      input: insertConfessionSchema,
+      responses: {
+        201: z.custom<typeof confessions.$inferSelect>(),
+        400: errorSchemas.validation,
+      },
+    },
+    getById: {
+      method: 'GET' as const,
+      path: '/api/confessions/:id' as const,
+      responses: {
+        200: z.custom<typeof confessions.$inferSelect>(),
+        404: errorSchemas.notFound,
+      },
+    },
+    updateStatus: {
+      method: 'PATCH' as const,
+      path: '/api/confessions/:id/status' as const,
+      input: z.object({ response: z.string() }),
+      responses: {
+        200: z.custom<typeof confessions.$inferSelect>(),
+        404: errorSchemas.notFound,
       },
     },
   },

@@ -24,7 +24,7 @@ export async function registerRoutes(
     secret: process.env.SESSION_SECRET || 'valentine_secret',
     resave: false,
     saveUninitialized: false,
-    cookie: { 
+    cookie: {
       secure: process.env.NODE_ENV === "production",
       maxAge: 30 * 60 * 1000 // 30 minutes session
     }
@@ -35,17 +35,17 @@ export async function registerRoutes(
   app.post(api.creators.create.path, async (req, res) => {
     try {
       const input = api.creators.create.input.parse(req.body);
-      
+
       const existing = await storage.getCreatorBySlug(input.slug);
       if (existing) {
         return res.status(409).json({ message: "This Valentine link is already taken." });
       }
 
       const creator = await storage.createCreator(input);
-      
+
       // Auto-login on creation
       req.session.creatorId = creator.id;
-      
+
       res.status(201).json(creator);
     } catch (err) {
       if (err instanceof z.ZodError) {
@@ -72,7 +72,7 @@ export async function registerRoutes(
     try {
       const input = api.creators.login.input.parse(req.body);
       const creator = await storage.getCreatorBySlug(input.slug);
-      
+
       if (!creator || creator.passcode !== input.passcode) {
         return res.status(401).json({ message: "Invalid slug or passcode" });
       }
@@ -92,7 +92,7 @@ export async function registerRoutes(
   app.post(api.messages.send.path, async (req, res) => {
     try {
       const input = api.messages.send.input.parse(req.body);
-      
+
       // Verify creator exists
       const creator = await storage.getCreatorById(input.creatorId);
       if (!creator) {
@@ -136,7 +136,7 @@ export async function registerRoutes(
       slug: demoSlug,
       passcode: "1234"
     });
-    
+
     // Add sample messages
     await storage.createMessage({
       creatorId: demo.id,
@@ -155,9 +155,51 @@ export async function registerRoutes(
       senderDevice: "Pixel 8",
       senderLocation: "Mantua, IT"
     });
-    
+
     console.log("Seed data initialized: demo/1234");
   }
+
+  // === CONFESSIONS ===
+
+  app.post(api.confessions.create.path, async (req, res) => {
+    try {
+      const input = api.confessions.create.input.parse(req.body);
+      const confession = await storage.createConfession(input);
+      res.status(201).json(confession);
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        return res.status(400).json({
+          message: err.errors[0].message,
+          field: err.errors[0].path.join('.'),
+        });
+      }
+      throw err;
+    }
+  });
+
+  app.get(api.confessions.getById.path, async (req, res) => {
+    const confession = await storage.getConfession(req.params.id);
+    if (!confession) {
+      return res.status(404).json({ message: "Confession not found" });
+    }
+    res.json(confession);
+  });
+
+  app.patch(api.confessions.updateStatus.path, async (req, res) => {
+    try {
+      const { response } = z.object({ response: z.string() }).parse(req.body);
+      const confession = await storage.updateConfessionStatus(req.params.id, response);
+      if (!confession) {
+        return res.status(404).json({ message: "Confession not found" });
+      }
+      res.json(confession);
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid input" });
+      }
+      throw err;
+    }
+  });
 
   return httpServer;
 }

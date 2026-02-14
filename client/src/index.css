@@ -1,113 +1,106 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Inter:wght@400;500;600&family=Pacifico&family=Poppins:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  /* BOTANICAL PALETTE */
-  --paper: 38 44% 94%;        /* #F7F2E9 - Warm parchment */
-  --paper-card: 38 33% 89%;   /* #EDE5D8 - Slightly darker card */
-  --paper-input: 38 75% 98%;  /* #FDFAF5 - Very light writing surface */
-  
-  --ink: 24 24% 13%;          /* #2A1F1A - Deep brownish black */
-  --ink-light: 26 20% 35%;    /* #6B5748 - Softer text */
-  
-  --wax-red: 351 57% 35%;     /* #8B2635 - Dried blood/wax red */
-  --wax-red-hover: 351 57% 30%;
-  
-  --rose: 350 56% 53%;        /* #C8445A - Vibrant rose */
-  --blush: 353 58% 77%;       /* #E8A0A8 - Soft pink */
-  --sage: 120 13% 48%;        /* #6B8C6B - Muted green */
-  --lavender: 260 20% 75%;    /* Lavender hint */
+  /* Valentine Palette */
+  --heart-red: 339 100% 71%;    /* #FF6B9D */
+  --blush-pink: 329 100% 88%;   /* #FFC2E2 */
+  --soft-rose: 343 100% 95%;    /* #FFE5EC */
+  --cream: 340 100% 98%;        /* #FFF0F5 */
+  --deep-romantic: 341 56% 50%; /* #C73866 */
+  --gold-accent: 51 100% 50%;   /* #FFD700 */
+  --shadow-purple: 297 50% 82%; /* #E6B8E8 */
 
   /* Shadcn mappings */
-  --background: var(--paper);
-  --foreground: var(--ink);
-  
-  --card: var(--paper-card);
-  --card-foreground: var(--ink);
-  
-  --popover: var(--paper-input);
-  --popover-foreground: var(--ink);
-  
-  --primary: var(--wax-red);
-  --primary-foreground: 38 75% 98%;
-  
-  --secondary: var(--sage);
-  --secondary-foreground: 38 75% 98%;
-  
-  --muted: 38 20% 85%;
-  --muted-foreground: var(--ink-light);
-  
-  --accent: var(--blush);
-  --accent-foreground: var(--ink);
-  
-  --destructive: 0 60% 40%;
-  --destructive-foreground: 38 75% 98%;
-  
-  --border: 30 15% 80%;
-  --input: 30 15% 80%;
-  --ring: var(--wax-red);
-  
-  --radius: 0.25rem;
-}
+  --background: var(--cream);
+  --foreground: var(--deep-romantic);
 
+  --card: 0 0% 100%;
+  --card-foreground: var(--deep-romantic);
+ 
+  --popover: 0 0% 100%;
+  --popover-foreground: var(--deep-romantic);
+ 
+  --primary: var(--heart-red);
+  --primary-foreground: 0 0% 100%;
+ 
+  --secondary: var(--blush-pink);
+  --secondary-foreground: var(--deep-romantic);
+ 
+  --muted: var(--soft-rose);
+  --muted-foreground: 341 30% 60%;
+ 
+  --accent: var(--gold-accent);
+  --accent-foreground: var(--deep-romantic);
+ 
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: var(--blush-pink);
+  --input: var(--blush-pink);
+  --ring: var(--heart-red);
+ 
+  --radius: 1rem;
+}
+ 
 @layer base {
   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Lora', serif;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, hsl(var(--cream)) 0%, hsl(var(--soft-rose)) 50%, hsl(var(--blush-pink)) 100%);
+    min-height: 100vh;
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Cormorant Garamond', serif;
-    @apply font-semibold tracking-wide;
-  }
-  
-  button, input, select, textarea, label, .ui-text {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Pacifico', cursive;
   }
 }
 
 @layer utilities {
-  .font-display { font-family: 'Cormorant Garamond', serif; }
-  .font-body { font-family: 'Lora', serif; }
-  .font-ui { font-family: 'DM Sans', sans-serif; }
+  .font-script { font-family: 'Dancing Script', cursive; }
+  .font-heading { font-family: 'Pacifico', cursive; }
+  .font-body { font-family: 'Inter', sans-serif; }
+  .font-friendly { font-family: 'Quicksand', sans-serif; }
   
-  .text-ink { color: hsl(var(--ink)); }
-  .text-ink-light { color: hsl(var(--ink-light)); }
-  .bg-paper { background-color: hsl(var(--paper)); }
-  
-  .wax-seal {
-    @apply relative inline-flex items-center justify-center rounded-full shadow-lg transition-transform hover:scale-105 active:scale-95 text-white font-display font-bold tracking-widest uppercase;
-    background: radial-gradient(circle at 30% 30%, #a63a49, #8B2635, #5e1a24);
-    box-shadow: 
-      0 4px 6px -1px rgba(0, 0, 0, 0.2),
-      0 2px 4px -1px rgba(0, 0, 0, 0.1),
-      inset 2px 2px 4px rgba(255, 255, 255, 0.2),
-      inset -2px -2px 4px rgba(0, 0, 0, 0.3);
+  .gradient-text {
+    background: linear-gradient(90deg, hsl(var(--heart-red)), hsl(var(--deep-romantic)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
   
-  .paper-card {
-    background-color: hsl(var(--paper-input));
-    box-shadow: 
-      0 1px 1px rgba(0,0,0,0.05),
-      0 2px 2px rgba(0,0,0,0.05),
-      0 4px 4px rgba(0,0,0,0.05),
-      0 8px 8px rgba(0,0,0,0.05);
-    border: 1px solid rgba(0,0,0,0.05);
+  .gradient-text-gold {
+    background: linear-gradient(90deg, hsl(var(--heart-red)), hsl(var(--gold-accent)), hsl(var(--heart-red)));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s linear infinite;
   }
 
-  /* Lined paper effect */
-  .lined-paper {
-    background-color: hsl(var(--paper-input));
-    background-image: linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px);
-    background-size: 100% 2rem;
-    line-height: 2rem;
-    padding-top: 0.5rem; /* Align text to lines roughly */
+  @keyframes shimmer {
+    to { background-position: 200% center; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { filter: drop-shadow(0 0 5px rgba(255, 107, 157, 0.3)); }
+    50% { filter: drop-shadow(0 0 15px rgba(255, 107, 157, 0.6)); }
+  }
+  
+  .glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
 }
