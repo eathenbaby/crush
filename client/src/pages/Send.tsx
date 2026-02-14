@@ -10,14 +10,21 @@ import { FlowerCard } from "@/components/FlowerCard";
 import confetti from "canvas-confetti";
 import { cn } from "@/lib/utils";
 
-// Mock data for flowers - using Unsplash source images
+import bouquet01 from "@assets/64603-OB2R9V-578_1771092125803.jpg";
+import bouquet02 from "@assets/6502939_1771092125804.jpg";
+import bouquet03 from "@assets/6523075_1771092125804.jpg";
+import bouquet04 from "@assets/6463769_1771092135717.jpg";
+import bouquet05 from "@assets/6517084_1771092142814.jpg";
+import bouquet06 from "@assets/6518416_1771092148926.jpg";
+
+// Mock data for flowers - using provided assets
 const FLOWERS = [
-  { id: "bouquet-01", name: "Red Roses", image: "https://images.unsplash.com/photo-1518709766631-a6a7f45921c3?w=400&h=400&fit=crop" },
-  { id: "bouquet-02", name: "Tulips", image: "https://images.unsplash.com/photo-1520763185298-1b434c919102?w=400&h=400&fit=crop" },
-  { id: "bouquet-03", name: "Wildflowers", image: "https://images.unsplash.com/photo-1490750967868-58cb75069ed6?w=400&h=400&fit=crop" },
-  { id: "bouquet-04", name: "Peonies", image: "https://images.unsplash.com/photo-1563241527-3004b7be0217?w=400&h=400&fit=crop" },
-  { id: "bouquet-05", name: "Sunflowers", image: "https://images.unsplash.com/photo-1470509037663-253afd7f0f51?w=400&h=400&fit=crop" },
-  { id: "bouquet-06", name: "Lilies", image: "https://images.unsplash.com/photo-1522291917539-722ba4855422?w=400&h=400&fit=crop" },
+  { id: "bouquet-01", name: "Red Roses", image: bouquet01 },
+  { id: "bouquet-02", name: "Pink Heart", image: bouquet02 },
+  { id: "bouquet-03", name: "Heart & Bow", image: bouquet03 },
+  { id: "bouquet-04", name: "Vintage Blooms", image: bouquet04 },
+  { id: "bouquet-05", name: "Vibrant Coral", image: bouquet05 },
+  { id: "bouquet-06", name: "Yellow Tulips", image: bouquet06 },
 ];
 
 const VIBES = [
